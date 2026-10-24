@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>أمن المنشآت | البوابة العسكرية</title>
+<style>
+:root{--bg:#0c120e;--panel:#151f18;--green:#294b35;--gold:#c6d6a2;--text:#eef3e9;--muted:#a8b7a7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.8}
+header{text-align:center;padding:35px 15px 20px;background:linear-gradient(150deg,#203b29,#101811);border-bottom:1px solid #405b43}
+.emblem{font-size:42px}
+h1{margin:4px 0;color:var(--gold)}
+header p,.muted{color:var(--muted);font-size:14px}
+main{width:min(900px,94%);margin:25px auto 60px}
+button,.navbtn{cursor:pointer;border:1px solid #49654a;background:var(--green);color:white;border-radius:10px;padding:12px 15px;font:inherit}
+button:hover,.navbtn:hover{filter:brightness(1.2)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.navbtn{min-height:90px;text-align:right;font-weight:bold;font-size:17px}
+.navbtn span{display:block;color:#c0d0be;font-weight:normal;font-size:12px}
+.panel{background:var(--panel);border:1px solid #2e4032;border-radius:14px;padding:20px;margin-top:18px}
+.hidden{display:none!important}
+.back{background:#26332a;margin-bottom:14px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.card{text-align:right;background:#1c2b20;min-height:70px}
+label{display:block;margin:12px 0 5px;font-size:14px}
+input,textarea,select{width:100%;padding:12px;background:#0c140e;border:1px solid #3c5140;border-radius:8px;color:white;font:inherit}
+textarea{min-height:85px;resize:vertical}
+.output{min-height:280px;white-space:pre-wrap;overflow-wrap:anywhere;direction:rtl;background:#080d09;border:1px solid #3d5340;border-radius:9px;padding:15px;margin-top:15px;font-size:14px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.secondary{background:#303c32}
+footer{text-align:center;color:#849486;font-size:12px;padding:25px}
+@media(max-width:560px){.grid,.cards{grid-template-columns:1fr}header{padding-top:25px}.panel{padding:14px}.navbtn{min-height:70px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="emblem">🛡️</div>
+  <h1>أمن المنشآت</h1>
+  <p>البوابة الإلكترونية العسكرية | قراند RP</p>
+</header>
+
+<main>
+  <section id="home">
+    <h2>القائمة الرئيسية</h2>
+    <p class="muted">اختر القسم المطلوب</p>
+    <div class="grid">
+      <button class="navbtn" onclick="openSection('police')">⚖️ الشرطة العسكرية<span>الاستدعاءات والتحقيقات والأحكام</span></button>
+      <button class="navbtn" onclick="openSection('recruit')">👥 شؤون التجنيد<span>نماذج التوظيف والمقابلات</span></button>
+      <button class="navbtn" onclick="openSection('academy')">🎓 الأكاديمية العسكرية<span>الدورات الاستثنائية</span></button>
+      <button class="navbtn" onclick="openSection('admin')">📋 الشؤون الإدارية<span>القسم قيد التجهيز</span></button>
+    </div>
+  </section>
+
+  <section id="police" class="hidden">
+    <button class="back" onclick="home()">← الرئيسية</button>
+    <h2>الشرطة العسكرية</h2>
+    <div class="cards">
+      <button class="card" onclick="showForm('summon')">استدعاء عسكري</button>
+      <button class="card" onclick="showForm('investigation')">ملف تحقيق</button>
+      <button class="card" onclick="showForm('sentence')">تنزيل حكم</button>
+      <button class="card" onclick="showForm('drop')">إسقاط حكم</button>
+    </div>
+  </section>
+
+  <section id="recruit" class="hidden">
+    <button class="back" onclick="home()">← الرئيسية</button>
+    <h2>شؤون التجنيد</h2>
+    <div class="cards">
+      <button class="card" onclick="showForm('job')">نموذج توظيف التكتات</button>
+      <button class="card" onclick="showForm('specialJob')">نموذج توظيف استثنائي</button>
+    </div>
+  </section>
+
+  <section id="academy" class="hidden">
+    <button class="back" onclick="home()">← الرئيسية</button>
+    <h2>الأكاديمية العسكرية</h2>
+    <div class="cards">
+      <button class="card" onclick="showForm('course')">دورات استثنائية</button>
+    </div>
+  </section>
+
+  <section id="admin" class="hidden">
+    <button class="back" onclick="home()">← الرئيسية</button>
+    <h2>الشؤون الإدارية</h2>
+    <p class="muted">سيتم إضافة النماذج الإدارية عند تجهيز تفاصيلها.</p>
+  </section>
+
+  <section id="builder" class="panel hidden">
+    <button class="back" onclick="backToSection()">← رجوع للقسم</button>
+    <h2 id="formTitle">النموذج</h2>
+    <p class="muted">عبّئ الخانات، ثم اضغط توليد الرسالة. المنشنات تُستخدم كما هي في القالب.</p>
+    <div id="fields"></div>
+    <div class="actions">
+      <button onclick="generate()">إنشاء الرسالة</button>
+      <button class="secondary" onclick="copyOutput()">نسخ الرسالة</button>
+    </div>
+    <div id="output" class="output">ستظهر الرسالة هنا بعد التوليد.</div>
+    <p class="muted">راجع الرسالة قبل إرسالها إلى الديسكورد.</p>
+  </section>
+</main>
+<footer>بوابة أمن المنشآت — مشروع مجتمعي لقراند RP</footer>
+
+<script>
+const roles = {
+  court:'<&1404535918366556305>',
+  police:'<&1404535917724827758>',
+  rukun:'<&1404535921751232634>',
+  approval:'<&1404535924469010482>',
+  chief:'<@1235272036885073980>',
+  academy:'<@1222300056753934467>',
+  deputy:'<@1178435980525584496>',
+  recruitRole:'<@&1404535917686947850>',
+  trainingRole:'<@&1404535916365877348>'
+};
+
+const templates = {
+  summon:{section:'police',title:'استدعاء عسكري',fields:[
+    ['number','رقم البرقية','text'],['soldier','آيدي العسكري','text']
+  ],make:v=>`﷽
+
+برقية رقم : ${v.number}
+
+اسـتـدعــاء الـعـسـكـري الـمذكـور أدنـاه :
+
+<@${v.soldier}>
+
+بـادر بـالـتـواصـل عـبـر روم :
+
+https://discord.com/channels/1404512396923375696/1445836423377846343
+
+لـديـك مـهـلـة 12 سـاعـة خـلاف ذلـك يـصـدر الـحـكـم فـورا`},
+
+  investigation:{section:'police',title:'ملف تحقيق',fields:[
+    ['number','رقم ملف التحقيق','text'],['investigator','آيدي المحقق','text'],
+    ['soldier','آيدي العسكري','text'],
+    ['attended','هل حضر الاستدعاء؟','select',['نعم','لا']],
+    ['guilty','هل اتضح أنه مذنب؟','select',['نعم','لا']],
+    ['warning','هل سبق حصوله على إنذار وظيفي؟','select',['نعم','لا']],
+    ['charge','التهمة الموجهة إليه','textarea'],
+    ['verdict','الحكم الأنسب','text','مراجعة المسؤولين'],
+    ['evidence','رابط دليل القضية','url']
+  ],make:v=>`الموضوع : فتح ملف تحقيق رقم : ${v.number}
+
+المحقق : <@${v.investigator}>
+
+على العسكري المذكور : <@${v.soldier}>
+
+هل تم حضور الاستدعاء : ${v.attended}
+
+أثناء التحقيق مع العسكري هل اتضح أنه مذنب : ${v.guilty}
+
+هل سبق وحصل العسكري على إنذار وظيفي : ${v.warning}
+
+التهمة الموجهة إليه : ${v.charge}
+
+الحكم الأنسب : ${v.verdict}
+
+دليل القضية : ${v.evidence}
+
+في الختام نرجو من مجلس القضاء العسكري النظر في القضية وإعطاء الحكم المناسب`},
+
+  sentence:{section:'police',title:'تنزيل حكم',fields:[
+    ['number','رقم البرقية','text'],['soldier','آيدي العسكري','text'],
+    ['verdict','الحكم','textarea'],['reason','السبب','textarea']
+  ],make:v=>`﷽
+
+برقية رقم : ${v.number}
+
+قرار حكم صادر من :
+
+${roles.court}
+
+على العسكري المذكور أدناه :
+
+<@${v.soldier}>
+
+وبعد ما تم مناقشته مع المجلس العسكري والقضاة فقد تقرر على المدين أعلاه بالحكم
+
+الحكم :
+
+${v.verdict}
+
+السبب :
+
+${v.reason}
+
+ترسل نسخة للـ
+${roles.police}
+
+رئاسة الشرطة العسكرية
+
+ال ${roles.rukun} ركن : <@1041752629765746779>
+
+اعتماد :
+
+${roles.approval}
+
+${roles.chief}`},
+
+  drop:{section:'police',title:'إسقاط حكم',fields:[
+    ['number','رقم البرقية','text'],['soldier','آيدي العسكري','text'],
+    ['verdict','الحكم المراد إسقاطه','textarea'],['order','منشن الرتبة الآمرة','text']
+  ],make:v=>`﷽
+
+برقية رقم : ${v.number}
+
+قرار إسقاط حكم صادر من :
+
+${roles.court}
+
+على العسكري المذكور أدناه :
+
+<@${v.soldier}>
+
+وبعد ما تم مناقشته مع المجلس العسكري والقضاة فقد تقرر على المدين أعلاه إسقاط الحكم الآتي
+
+الحكم :
+
+${v.verdict}
+
+بأمر من : ${v.order}
+
+ترسل نسخة للـ
+${roles.police}
+
+رئاسة الشرطة العسكرية
+
+ال ${roles.rukun} ركن : <@1041752629765746779>
+
+اعتماد :
+
+${roles.approval}
+
+${roles.chief}`},
+
+  job:{section:'recruit',title:'نموذج توظيف التكتات',fields:[
+    ['name','الاسم','text'],['id','آيدي المنشن','text'],['age','العمر','number'],
+    ['experience','الخبرة','text'],['previous','الخبرات السابقة','textarea'],
+    ['score','درجة الاختبار من 15','number'],['observer','آيدي مسؤول الرصد','text']
+  ],make:v=>`نموذج توظيف التكتات
+
+الاسم : ${v.name}
+
+المنشن : <@${v.id}>
+
+العمر : ${v.age}
+
+الخبرة : ${v.experience}
+
+الخبرات السابقة : ${v.previous}
+
+نسبة النجاح في الاختبار : 15/${v.score}
+
+مسؤولين رصد : <@${v.observer}>
+
+<@&1404535924469010482>
+<@&1404535924280529059>
+<@&1404535924494438460>
+<@&1404535924372672633>
+<@&1495735349677133914>
+<@&1404535917686947850>`},
+
+  specialJob:{section:'recruit',title:'نموذج توظيف استثنائي',fields:[
+    ['name','اسم المستجد','text'],['id','آيدي المستجد','text'],['age','العمر','number'],
+    ['experience','الخبرة','text'],['military','هل لديه خبرات عسكرية؟','select',['نعم','لا']],
+    ['notes','ملاحظات','textarea'],['rejection','سبب الرفض (اكتب لا يوجد إن لم يوجد)','text','لا يوجد']
+  ],make:v=>`﷽
+
+**مقابلة وظيفية :-**
+
+اسم المستجد : ${v.name}
+
+منشن المستجد : <@${v.id}>
+
+العمر : ${v.age}
+
+الخبرة : ${v.experience}
+
+هل يوجد خبرات عسكرية : ${v.military}
+
+-------------------------------------------------------------------
+
+ملاحظة : ${v.notes}
+
+سبب الرفض : ${v.rejection}
+
+|| <@&1404535917686947850> ||`},
+
+  course:{section:'academy',title:'دورة استثنائية',fields:[
+    ['date','التاريخ الميلادي','date'],['number','رقم الدورة الاستثنائية','text'],
+    ['trainer','آيدي المدرب','text'],['fees','آيدي مستلم الرسوم التدريبية','text'],
+    ['soldier','آيدي العسكري المتدرب','text'],['course','اسم الدورة / الرتبة المطلوبة','text']
+  ],make:v=>`الـسـلام عـلـيـكـم ورحـمـة الله وبـركـاتـه
+
+تـحـيـة طـيـبـة أمـا بـعـد
+
+بـعـد مـوافـقـة الـقـيادة بـعـقـد دورة اسـتـثـنائـيـة لـلأخ الـمـذكـور أدنـاه
+
+نـفـيـدكـم بـأنـه تـم بـمـشـيـئـة الله عـقـد الـدورة بـتـاريـخ : ${v.date}
+
+وقـد اجـتـاز الـدورة بـنـجـاح
+
+دورة استثنائية رقم : ${v.number}
+
+المدرب : <@${v.trainer}>
+
+مستلم الرسوم التدريبية : <@${v.fees}>
+
+اسم العسكري المتدرب : <@${v.soldier}>
+
+نرجو منكم إعطائه رتبة / دورة : ${v.course}
+
+ترسل نسخة إلى
+
+قائد أكاديمية أمن المنشآت
+${roles.academy}
+
+نائب قائد أكاديمية أمن المنشآت
+${roles.deputy}
+
+-----------------------
+
+قائد قوات أمن المنشآت : ${roles.chief}
+
+|| ${roles.trainingRole} ||`}
+};
+
+let currentForm = null;
+let currentSection = 'home';
+
+function hideAll(){
+  ['home','police','recruit','academy','admin','builder'].forEach(id=>
+    document.getElementById(id).classList.add('hidden'));
+}
+function openSection(id){
+  hideAll();
+  currentSection=id;
+  document.getElementById(id).classList.remove('hidden');
+}
+function home(){hideAll();currentSection='home';document.getElementById('home').classList.remove('hidden')}
+function backToSection(){openSection(currentSection)}
+function showForm(id){
+  currentForm=templates[id];
+  currentSection=currentForm.section;
+  hideAll();
+  document.getElementById('builder').classList.remove('hidden');
+  document.getElementById('formTitle').textContent=currentForm.title;
+  document.getElementById('output').textContent='ستظهر الرسالة هنا بعد التوليد.';
+  const box=document.getElementById('fields');
+  box.innerHTML='';
+  currentForm.fields.forEach(([key,label,type,extra])=>{
+    const wrap=document.createElement('div');
+    const lab=document.createElement('label');
+    lab.textContent=label;
+    lab.htmlFor='f_'+key;
+    let el;
+    if(type==='select'){
+      el=document.createElement('select');
+      (extra||[]).forEach(opt=>{
+        const o=document.createElement('option');
+        o.value=opt;o.textContent=opt;el.appendChild(o);
+      });
+    }else if(type==='textarea'){
+      el=document.createElement('textarea');
+    }else{
+      el=document.createElement('input');
+      el.type=['text','number','url','date'].includes(type)?type:'text';
+    }
+    el.id='f_'+key;
+    el.dataset.key=key;
+    if(type==='number'){el.min='0';if(key==='score')el.max='15'}
+    if(typeof extra==='string')el.value=extra;
+    if(type!=='select' && !el.value)el.placeholder='اكتب '+label+' هنا';
+    wrap.append(lab,el);box.appendChild(wrap);
+  });
+}
+function values(){
+  const v={};
+  document.querySelectorAll('#fields [data-key]').forEach(el=>{
+    v[el.dataset.key]=el.value.trim();
+  });
+  return v;
+}
+function generate(){
+  const v=values();
+  const missing=currentForm.fields
+    .filter(([key,label,type,extra])=>!v[key] && !(typeof extra==='string'))
+    .map(([key,label])=>label);
+  if(missing.length){
+    alert('فضلاً أكمل الخانات التالية:\\n'+missing.join('\\n'));
+    return;
+  }
+  if(v.score && (+v.score<0 || +v.score>15)){
+    alert('درجة الاختبار يجب أن تكون بين 0 و15.');
+    return;
+  }
+  document.getElementById('output').textContent=currentForm.make(v);
+}
+async function copyOutput(){
+  const text=document.getElementById('output').textContent;
+  if(!currentForm || text==='ستظهر الرسالة هنا بعد التوليد.'){
+    alert('ولّد الرسالة أولاً.');return;
+  }
+  try{
+    await navigator.clipboard.writeText(text);
+    alert('تم نسخ الرسالة.');
+  }catch(e){
+    const area=document.createElement('textarea');
+    area.value=text;document.body.appendChild(area);
+    area.select();
+    const ok=document.execCommand('copy');
+    area.remove();
+    alert(ok?'تم نسخ الرسالة.':'تعذر النسخ؛ حدد الرسالة وانسخها يدويًا.');
+  }
+}
+</script>
+</body>
+</html>
