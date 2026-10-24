@@ -4,23 +4,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>أمن المنشآت | البوابة العسكرية</title>
+<title>مقاطعة العاذرية | البوابة العسكرية</title>
 <style>
-:root{--bg:#0c120e;--panel:#151f18;--green:#294b35;--gold:#c6d6a2;--text:#eef3e9;--muted:#a8b7a7}
+:root{--bg:#090e0b;--panel:#121b15;--green:#294b35;--gold:#c6d6a2;--text:#eef3e9;--muted:#a8b7a7}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.8}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.9;background-image:radial-gradient(ellipse at top,rgba(41,75,53,.22),transparent 60%)}
 header{text-align:center;padding:35px 15px 20px;background:linear-gradient(150deg,#203b29,#101811);border-bottom:1px solid #405b43}
 .emblem{font-size:42px}
 h1{margin:4px 0;color:var(--gold)}
 header p,.muted{color:var(--muted);font-size:14px}
 main{width:min(900px,94%);margin:25px auto 60px}
 button,.navbtn{cursor:pointer;border:1px solid #49654a;background:var(--green);color:white;border-radius:10px;padding:12px 15px;font:inherit}
-button:hover,.navbtn:hover{filter:brightness(1.2)}
+button:hover,.navbtn:hover{filter:brightness(1.12);transform:translateY(-2px);box-shadow:0 8px 22px #0004;border-color:var(--gold)}
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .navbtn{min-height:90px;text-align:right;font-weight:bold;font-size:17px}
 .navbtn span{display:block;color:#c0d0be;font-weight:normal;font-size:12px}
-.panel{background:var(--panel);border:1px solid #2e4032;border-radius:14px;padding:20px;margin-top:18px}
+.panel{background:var(--panel);border:1px solid #2e4032;border-radius:18px;padding:22px;margin-top:18px;box-shadow:0 14px 35px #0003}
 .hidden{display:none!important}
 .back{background:#26332a;margin-bottom:14px}
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -33,13 +33,24 @@ textarea{min-height:85px;resize:vertical}
 .secondary{background:#303c32}
 footer{text-align:center;color:#849486;font-size:12px;padding:25px}
 @media(max-width:560px){.grid,.cards{grid-template-columns:1fr}header{padding-top:25px}.panel{padding:14px}.navbtn{min-height:70px}}
+
+/* مكتبة القيفات */
+.gif-category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.gif-category-btn{min-height:76px;text-align:right;font-weight:bold;background:linear-gradient(135deg,#294b35,#17271b)}
+.gif-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.gif-copy-btn{min-height:68px;text-align:right;background:#1c2b20;border:1px solid #49654a}
+.gif-copy-btn small{display:block;color:#c6d6a2;font-weight:normal;font-size:12px}
+.gif-copy-btn.copied{border-color:#c6d6a2;background:#2d4934}
+.gif-divider-note{grid-column:1/-1;color:#a8b7a7;font-size:12px;margin:4px 0}
+@media(max-width:560px){.gif-category-grid,.gif-list{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
 <header>
-  <div class="emblem">🛡️</div>
-  <h1>أمن المنشآت</h1>
-  <p>البوابة الإلكترونية العسكرية | قراند RP</p>
+  <div class="emblem">⚓</div>
+  <h1>مقاطعة العاذرية</h1>
+  <p>البوابة الإلكترونية العسكرية</p>
 </header>
 
 <main>
@@ -51,6 +62,7 @@ footer{text-align:center;color:#849486;font-size:12px;padding:25px}
       <button class="navbtn" onclick="openSection('recruit')">👥 شؤون التجنيد<span>نماذج التوظيف والمقابلات</span></button>
       <button class="navbtn" onclick="openSection('academy')">🎓 الأكاديمية العسكرية<span>الدورات الاستثنائية</span></button>
       <button class="navbtn" onclick="openSection('admin')">📋 الشؤون الإدارية<span>القسم قيد التجهيز</span></button>
+      <button class="navbtn" onclick="openSection('gifs')">✦ القيفات<span>مكتبة قيفات القطاعات — اضغط لنسخ الرابط</span></button>
     </div>
   </section>
 
@@ -62,6 +74,7 @@ footer{text-align:center;color:#849486;font-size:12px;padding:25px}
       <button class="card" onclick="showForm('investigation')">ملف تحقيق</button>
       <button class="card" onclick="showForm('sentence')">تنزيل حكم</button>
       <button class="card" onclick="showForm('drop')">إسقاط حكم</button>
+      <button class="card" onclick="showForm('dismissal')">فصل من السلك العسكري</button>
     </div>
   </section>
 
@@ -85,7 +98,64 @@ footer{text-align:center;color:#849486;font-size:12px;padding:25px}
   <section id="admin" class="hidden">
     <button class="back" onclick="home()">← الرئيسية</button>
     <h2>الشؤون الإدارية</h2>
-    <p class="muted">سيتم إضافة النماذج الإدارية عند تجهيز تفاصيلها.</p>
+    <p class="muted">نماذج القرارات الإدارية — اختر النموذج المطلوب.</p>
+    <div class="cards">
+      <button class="card" onclick="showForm('externalLeave')">إجازة خارجية</button>
+      <button class="card" onclick="showForm('internalLeave')">إجازة داخلية</button>
+      <button class="card" onclick="showForm('resignation')">استقالات</button>
+      <button class="card" onclick="showForm('secondment')">انتداب لقطاع آخر</button>
+      <button class="card" onclick="showForm('adminCustom')">قرار إداري مخصص</button>
+    </div>
+  </section>
+
+
+  <section id="gifs" class="hidden">
+    <button class="back" onclick="home()">← الرئيسية</button>
+    <h2>مكتبة القيفات</h2>
+    <p class="muted">اختر القطاع، ثم اضغط على اسم القيف لنسخ رابطه.</p>
+    <div id="gifCategories" class="gif-category-grid">
+      <button class="gif-category-btn" onclick="showGifCategory('gifsPolice')">⚖️ الشرطة العسكرية</button>
+      <button class="gif-category-btn" onclick="showGifCategory('gifsAdmin')">📋 الشؤون الإدارية</button>
+      <button class="gif-category-btn" onclick="showGifCategory('gifsRecruit')">👥 شؤون التجنيد</button>
+      <button class="gif-category-btn" onclick="showGifCategory('gifsAcademy')">🎓 الأكاديمية العسكرية</button>
+    </div>
+    <div id="gifsPolice" class="hidden">
+      <button class="back" onclick="backToGifCategories()">← أقسام القيفات</button><h3>الشرطة العسكرية</h3>
+      <div class="gif-list">
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1471176765735964693/1506158060404736131/3.gif?ex=6add8b80&is=6adc3a00&hm=de38827875e2885382e565172eaddcab025bbf5a571b4cc9c62ca414d830951f&=&width=320&height=66',this,'قيف الاستدعاء')">قيف الاستدعاء<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1346168170775449712/1506141058671575141/5.gif?ex=6add7bab&is=6adc2a2b&hm=07e8195aa1855031c4d1be077471dab87e1217205da24cef97e317aec9bd5e17&=&width=320&height=66',this,'قيف الشرطة العسكرية')">قيف الشرطة العسكرية<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1468331821401112769/1506152212580007968/2.gif?ex=6add860e&is=6adc348e&hm=daea0f58f7a79835497db380c08caefb120648feb4d281a55ee761c944f800b3&=&width=320&height=66',this,'قيف الفصل')">قيف الفصل<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1346168170775449712/1506149533623652352/2b226127a13a7701.gif?ex=6add838f&is=6adc320f&hm=67e4e0534b4727e4aff0456d4d1e36e909a020158ee9e78994e9cae913d9de89&=&width=320&height=66',this,'قيف مجلس القضاء')">قيف مجلس القضاء<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1461558421118652639/1462905973034455334/a2b23ad8e096e520.gif?ex=6addbd1b&is=6adc6b9b&hm=449c0c0da60c4b9808d1c7e9aa47778d491c7f660257239cd9d29003d5a611b3&=&width=320&height=71',this,'قيف قائد الشرطة العسكرية')">قيف قائد الشرطة العسكرية<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1093317374817607812/1405707578935087225/21aaec001e70334b.gif?ex=6addf3f3&is=6adca273&hm=64ccf5473429a5c4a554d3c1eb2981d1df919582294d8f1da342a5a2b8ac43fd&=&width=1536&height=155',this,'فاصل الشرطة العسكرية')">فاصل الشرطة العسكرية<small>اضغط لنسخ الرابط</small></button>
+      </div>
+    </div>
+    <div id="gifsAdmin" class="hidden">
+      <button class="back" onclick="backToGifCategories()">← أقسام القيفات</button><h3>الشؤون الإدارية</h3>
+      <div class="gif-list">
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1461558421118652639/1463254227194482919/95ecf6c947af92bf.gif?ex=6addaff1&is=6adc5e71&hm=9d6d8c3f0cec4ec614335817ac7c6007bee99316b7c3a0c28d28d0e145d95d66&=&width=384&height=85',this,'قيف الاستقالة')">قيف الاستقالة<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1461558421118652639/1462611619598307592/d8492d11f187359e.gif?ex=6addfc78&is=6adcaaf8&hm=4017bacedebebad4a9ddb20e8c18a09044b504e5c5b9c299d0b90ad74c43f5e3&=&width=384&height=85',this,'قيف الإجازة الداخلية')">قيف الإجازة الداخلية<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1461558421118652639/1462611183122255912/aa8e971c89197e19.gif?ex=6addfc10&is=6adcaa90&hm=10964f5fd12d26c2a0f2b58bd7e97d0f61487aabf1ba48c5f2ea60ef7cd64900&=&width=384&height=85',this,'قيف الإجازة الخارجية')">قيف الإجازة الخارجية<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1461558421118652639/1463254260060782868/b00e963c2f0ec2f3.gif?ex=6addaff9&is=6adc5e79&hm=e7257b9368a03480e69926d526f17be6671e91d4bb2aa4da769c1cf77a3ced22&=&width=384&height=85',this,'قيف الانتداب')">قيف الانتداب<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1389686614103687259/1406067873079890041/98536f766a964b62.gif?ex=6addf200&is=6adca080&hm=d6788562efbc352aaa73f60976551ebde0dde9a6ba2dd1947e49486bdaeb5a47&=&width=1536&height=155',this,'فاصل الشؤون الإدارية')">فاصل الشؤون الإدارية<small>اضغط لنسخ الرابط</small></button>
+      </div>
+    </div>
+    <div id="gifsRecruit" class="hidden">
+      <button class="back" onclick="backToGifCategories()">← أقسام القيفات</button><h3>شؤون التجنيد</h3>
+      <div class="gif-list">
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1555266369405198457/1563276415988797570/TAGNED.gif?ex=6addb2dd&is=6adc615d&hm=c48c3e2fc9a280c972fdfe50150e4f4f09fd54dc28a09ae91c5c1a5ef86cb4c1&=&width=320&height=71',this,'قيف شؤون التجنيد')">قيف شؤون التجنيد<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1461558421118652639/1462636034947813456/72abb3cb1d3aaf8f.gif?ex=6ade1335&is=6adcc1b5&hm=33e00b507b97f7003d37a720c40936cace93178dd5a70e49421418c64df8ea04&=&width=1536&height=155',this,'فاصل شؤون التجنيد')">فاصل شؤون التجنيد<small>اضغط لنسخ الرابط</small></button>
+      </div>
+    </div>
+    <div id="gifsAcademy" class="hidden">
+      <button class="back" onclick="backToGifCategories()">← أقسام القيفات</button><h3>الأكاديمية العسكرية</h3>
+      <div class="gif-list">
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1461558421118652639/1463260396008771750/76e59ea641816b2d.gif?ex=6addb5b0&is=6adc6430&hm=0dfaccfdbea9f38e40ea0fdb9cecaefcd2bf5381ea5792ba14bead10acfdbbba&=&width=320&height=71',this,'قيف قائد الأكاديمية')">قيف قائد الأكاديمية<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1513975055078522880/1517077718410203146/fd4a5dda35b51ea2.gif?ex=6addb83a&is=6adc66ba&hm=54bd283d0230fbca9c6899995452f41fbec232a2c91e8e9747846fe568ffc7ca&=&width=384&height=85',this,'قيف نائب القائد')">قيف نائب القائد<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://cdn.discordapp.com/attachments/1513975055078522880/1563575386498142338/ACADEMEY.gif?ex=6ade208d&is=6adccf0d&hm=04181bbfcc6959acfc6292fa6674de98eac4974007489597571a395e3ab52565',this,'قيف الأكاديمية')">قيف الأكاديمية<small>اضغط لنسخ الرابط</small></button>
+        <button class="gif-copy-btn" onclick="copyGif('https://media.discordapp.net/attachments/1461558421118652639/1462636034947813456/72abb3cb1d3aaf8f.gif?ex=6ade1335&is=6adcc1b5&hm=33e00b507b97f7003d37a720c40936cace93178dd5a70e49421418c64df8ea04&=&width=1536&height=155',this,'فاصل الأكاديمية العسكرية')">فاصل الأكاديمية العسكرية<small>اضغط لنسخ الرابط</small></button>
+      </div>
+    </div>
   </section>
 
   <section id="builder" class="panel hidden">
@@ -101,17 +171,17 @@ footer{text-align:center;color:#849486;font-size:12px;padding:25px}
     <p class="muted">راجع الرسالة قبل إرسالها إلى الديسكورد.</p>
   </section>
 </main>
-<footer>بوابة أمن المنشآت — مشروع مجتمعي لقراند RP</footer>
+<footer>مقاطعة العاذرية — البوابة العسكرية الإلكترونية</footer>
 
 <script>
 const roles = {
-  court:'<&1404535918366556305>',
-  police:'<&1404535917724827758>',
-  rukun:'<&1404535921751232634>',
-  approval:'<&1404535924469010482>',
+  court:'<@&1404535918366556305>',
+  police:'<@&1404535917724827758>',
+  rukun:'<@&1404535921751232634>',
+  approval:'<@&1404535924469010482>',
   chief:'<@1235272036885073980>',
   academy:'<@1222300056753934467>',
-  deputy:'<@1178435980525584496>',
+  deputy:'<@1222300056753934467>',
   recruitRole:'<@&1404535917686947850>',
   trainingRole:'<@&1404535916365877348>'
 };
@@ -163,38 +233,36 @@ https://discord.com/channels/1404512396923375696/1445836423377846343
 في الختام نرجو من مجلس القضاء العسكري النظر في القضية وإعطاء الحكم المناسب`},
 
   sentence:{section:'police',title:'تنزيل حكم',fields:[
-    ['number','رقم البرقية','text'],['soldier','آيدي العسكري','text'],
+    ['number','رقم البرقية','text'],['fileNo','رقم ملف التحقيق','text'],['soldier','آيدي العسكري','text'],
     ['verdict','الحكم','textarea'],['reason','السبب','textarea']
-  ],make:v=>`﷽
+  ],make:v=>`**﷽**
 
-برقية رقم : ${v.number}
+**برقية رقم : ${v.number}**
 
-قرار حكم صادر من :
+**قرار حكم صادر من :**
 
 ${roles.court}
 
-على العسكري المذكور أدناه :
+**وبناء على ما ورد في ملف التحقيق (${v.fileNo})**
 
-<@${v.soldier}>
+**على العسكري المذكور أدناه : <@${v.soldier}>**
 
-وبعد ما تم مناقشته مع المجلس العسكري والقضاة فقد تقرر على المدين أعلاه بالحكم
+**وبعد ما تم مناقشته مع المجلس العسكري والقضاة فقد تقرر على المُدان أعلاه بالحكم**
 
-الحكم :
+**الحكم :**
 
-${v.verdict}
+** \`${v.verdict}\` **
 
-السبب :
+**السبب :**
 
-${v.reason}
+** \`${v.reason}\` **
 
-ترسل نسخة للـ
-${roles.police}
+**ترسل نسخة لـ ${roles.police}**
 
-رئاسة الشرطة العسكرية
+**رئاسة الشرطة العسكرية**
 
-ال ${roles.rukun} ركن : <@1041752629765746779>
-
-اعتماد :
+<@1041752629765746779>
+<@1157464127200051342>
 
 ${roles.approval}
 
@@ -202,7 +270,7 @@ ${roles.chief}`},
 
   drop:{section:'police',title:'إسقاط حكم',fields:[
     ['number','رقم البرقية','text'],['soldier','آيدي العسكري','text'],
-    ['verdict','الحكم المراد إسقاطه','textarea'],['order','منشن الرتبة الآمرة','text']
+    ['verdict','الحكم المراد إسقاطه','textarea'],['order','منشن صاحب الأمر','text']
   ],make:v=>`﷽
 
 برقية رقم : ${v.number}
@@ -215,7 +283,7 @@ ${roles.court}
 
 <@${v.soldier}>
 
-وبعد ما تم مناقشته مع المجلس العسكري والقضاة فقد تقرر على المدين أعلاه إسقاط الحكم الآتي
+وبعد ما تم مناقشته مع المجلس العسكري والقضاة فقد تقرر على المُدان أعلاه إسقاط الحكم الآتي
 
 الحكم :
 
@@ -228,7 +296,7 @@ ${roles.police}
 
 رئاسة الشرطة العسكرية
 
-ال ${roles.rukun} ركن : <@1041752629765746779>
+الـ ${roles.rukun} ركن : <@1041752629765746779>
 
 اعتماد :
 
@@ -326,13 +394,208 @@ ${roles.deputy}
 قائد قوات أمن المنشآت : ${roles.chief}
 
 || ${roles.trainingRole} ||`}
+,
+dismissal:{section:'police',title:'فصل من السلك العسكري',fields:[['number','رقم البرقية','text'],['soldier','آيدي العسكري','text'],['code','كود العسكري (3 أرقام)','text'],['name','اسم العسكري','text'],['verdict','الحكم','textarea','فصل من السلك العسكري - غرامة مليون - منع توظيف 14 يوم'],['reason','السبب','textarea']],make:v=>`**﷽**
+
+**برقية رقم : ${v.number}**
+
+**قرار حكم صادر من :**
+
+${roles.court}
+
+**على العسكري المذكور أدناه :**
+
+<@${v.soldier}>
+
+[H-${String(v.code).padStart(3,'0')}] ${v.name}
+
+**وبعد ما تم مناقشته مع المجلس العسكري والقضاة فقد تقرر على المُدان أعلاه بالحكم**
+
+**الحكم :**
+
+** \`${v.verdict}\` **
+
+**السبب :**
+
+** \`${v.reason}\` **
+
+**ترسل نسخة لـ ${roles.police}**
+
+**رئاسة الشرطة العسكرية**
+
+<@1041752629765746779>
+<@1157464127200051342>
+
+${roles.approval}
+
+${roles.chief}`},
+
+externalLeave:{section:'admin',title:'إجازة خارجية',fields:[['number','رقم القرار','text'],['soldier','آيدي العسكري','text'],['duration','مدة الإجازة','text'],['start','تاريخ البداية','date'],['returnDate','تاريخ العودة','date']],make:v=>`﷽
+
+**قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
+
+**ينـص علـى قبول اجازة العسـكري المحتـرم : <@${v.soldier}>**
+
+\`\`\`اجازه خارجية
+
+المدة : ${v.duration}
+
+تبدأ من تاريخ : ${v.start}
+
+تاريــخ العـــودة : ${v.returnDate}
+
+———————————————————————————————————————
+\`\`\`
+
+ترسل نسخة للـ ${roles.police}
+
+**توقيع :**
+
+مدير مكتب ${roles.police}
+<@1222300056753934467>
+
+نائب مدير مكتب ${roles.police}
+<@1222300056753934467>
+
+اعـتـماد ✍🏻 :
+
+${roles.approval}
+${roles.chief}`},
+
+internalLeave:{section:'admin',title:'إجازة داخلية',fields:[['number','رقم القرار','text'],['soldier','آيدي العسكري','text'],['duration','مدة الإجازة','select',Array.from({length:24},(_,i)=>`${i+1} ساعة`)],['balance','الرصيد المتبقي','text'],['start','تاريخ البداية','date'],['startTime','وقت البداية','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)],['returnDate','تاريخ العودة','date'],['returnTime','وقت العودة','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)]],make:v=>`﷽
+
+**قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
+
+**ينـص علـى قبول اجازة العسـكري المحتـرم : <@${v.soldier}>**
+
+\`\`\`اجازه داخليه
+
+المدة : ${v.duration}
+
+الرصيد المتبقي : ${v.balance}
+
+تبدأ من تاريخ : ${v.start}
+الساعة : ${v.startTime} بتوقيت مكة المكرمة
+
+تاريــخ العـــودة : ${v.returnDate}
+الساعة : ${v.returnTime} بتوقيت مكة المكرمة
+
+———————————————————————————————————————
+\`\`\`
+
+ترسل نسخة للـ ${roles.police}
+
+**توقيع :**
+
+مدير مكتب ${roles.police}
+<@1222300056753934467>
+
+نائب مدير مكتب ${roles.police}
+<@1222300056753934467>
+
+اعـتـماد ✍🏻 :
+
+${roles.approval}
+${roles.chief}`},
+
+resignation:{section:'admin',title:'استقالة عسكري',fields:[['number','رقم القرار','text'],['rank','رتبة العسكري','select',['جندي|1404535919528120472','جندي أول|1404535919444234331','عريف|1404535919444361276','وكيل رقيب|1404535919012352153','رقيب|1404535919511601232','رقيب أول|1404535920681553990','رئيس رقباء|1404535920744595507','ملازم|1404535920711045121','ملازم أول|1404535920627028008','نقيب|1404535921948233868']],['soldier','آيدي العسكري','text'],['name','اسم العسكري','text'],['code','كود العسكري (3 أرقام)','text']],make:v=>{const [rank,id]=v.rank.split('|');return `*** ﷽ ***
+
+**قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
+
+**ينـص علـى قبول استقالة العسـكري المحتـرم بـرتـبـة :**
+<@&${id}>
+
+<@${v.soldier}>
+
+${v.name} [H-${String(v.code).padStart(3,'0')}]
+
+شكراً لما قدمته من جهود وتعب وعناء، وفقك الله ونتمنى لك الخير والسعادة.
+
+ترسل نسخة للـ ${roles.police}
+
+**توقيع :**
+
+مدير مكتب ${roles.police}
+<@1222300056753934467>
+
+نائب مدير مكتب ${roles.police}
+<@1222300056753934467>
+
+اعـتـماد ✍🏻 :
+
+${roles.approval}
+${roles.chief}`}},
+
+secondment:{section:'admin',title:'انتداب لقطاع آخر',fields:[['number','رقم القرار','text'],['soldier','آيدي العسكري','text'],['sector','القطاع المنتدب إليه','select',['الأمن العام|1404535934703239301','أمن المنشآت|1404535908493168824','الإدارة العامة للمجاهدين|1553866934515408978','الهلال الأحمر|1404535887643021414','كراج الميكانيك|1404535894219952338']],['duration','مدة الانتداب','select',Array.from({length:7},(_,i)=>`${i+1} ${i===0?'يوم':'أيام'}`)],['start','تاريخ البداية','date'],['startTime','وقت البداية','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)],['returnDate','تاريخ العودة','date'],['returnTime','وقت العودة','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)]],make:v=>{const [sector,id]=v.sector.split('|');return `﷽
+
+**قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
+
+**ينـص علـى قبول انتداب العسـكري المحتـرم :**
+
+<@${v.soldier}>
+
+انتداب إلى : <@&${id}> (${sector})
+
+\`\`\`انتداب
+
+المدة : ${v.duration}
+
+تبدأ من تاريخ : ${v.start}
+الساعة : ${v.startTime} بتوقيت مكة المكرمة
+
+تاريــخ العـــودة : ${v.returnDate}
+الساعة : ${v.returnTime} بتوقيت مكة المكرمة
+
+———————————————————————————————————————
+\`\`\`
+
+ترسل نسخة للـ ${roles.police}
+
+**توقيع :**
+
+مدير مكتب ${roles.police}
+<@1222300056753934467>
+
+نائب مدير مكتب ${roles.police}
+<@1222300056753934467>
+
+اعـتـماد ✍🏻 :
+
+${roles.approval}
+${roles.chief}`}},
+
+adminCustom:{section:'admin',title:'قرار إداري مخصص',fields:[['number','رقم القرار','text'],['subject','موضوع القرار','text'],['details','نص القرار','textarea'],['soldier','آيدي العسكري (اختياري)','text']],make:v=>`﷽
+
+**قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
+
+**الموضوع : ${v.subject}**
+
+${v.soldier?`العسكري المعني : <@${v.soldier}>`:''}
+
+${v.details}
+
+ترسل نسخة للـ ${roles.police}
+
+**توقيع :**
+
+مدير مكتب ${roles.police}
+<@1222300056753934467>
+
+نائب مدير مكتب ${roles.police}
+<@1222300056753934467>
+
+اعـتـماد ✍🏻 :
+
+${roles.approval}
+${roles.chief}`}
+
 };
 
 let currentForm = null;
 let currentSection = 'home';
 
 function hideAll(){
-  ['home','police','recruit','academy','admin','builder'].forEach(id=>
+  ['home','police','recruit','academy','admin','gifs','builder'].forEach(id=>
     document.getElementById(id).classList.add('hidden'));
 }
 function openSection(id){
@@ -387,10 +650,14 @@ function values(){
 function generate(){
   const v=values();
   const missing=currentForm.fields
-    .filter(([key,label,type,extra])=>!v[key] && !(typeof extra==='string'))
+    .filter(([key,label,type,extra])=>!v[key] && !(typeof extra==='string') && !(currentForm===templates.adminCustom && key==='soldier'))
     .map(([key,label])=>label);
   if(missing.length){
     alert('فضلاً أكمل الخانات التالية:\\n'+missing.join('\\n'));
+    return;
+  }
+  if((currentForm===templates.dismissal || currentForm===templates.resignation) && !/^\d{1,3}$/.test(v.code)){
+    alert('كود العسكري يجب أن يكون من رقم إلى ثلاثة أرقام.');
     return;
   }
   if(v.score && (+v.score<0 || +v.score>15)){
@@ -416,6 +683,28 @@ async function copyOutput(){
     alert(ok?'تم نسخ الرسالة.':'تعذر النسخ؛ حدد الرسالة وانسخها يدويًا.');
   }
 }
+
+function showGifCategory(id){
+  document.getElementById('gifCategories').classList.add('hidden');
+  ['gifsPolice','gifsAdmin','gifsRecruit','gifsAcademy'].forEach(section=>document.getElementById(section).classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+function backToGifCategories(){
+  ['gifsPolice','gifsAdmin','gifsRecruit','gifsAcademy'].forEach(section=>document.getElementById(section).classList.add('hidden'));
+  document.getElementById('gifCategories').classList.remove('hidden');
+}
+async function copyGif(url,button,label){
+  try{
+    await navigator.clipboard.writeText(url);
+  }catch(e){
+    const area=document.createElement('textarea');area.value=url;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();
+    const ok=document.execCommand('copy');area.remove();
+    if(!ok){alert('تعذر نسخ الرابط. جرّب فتح الموقع عبر HTTPS ثم أعد المحاولة.');return;}
+  }
+  const old=button.innerHTML;button.classList.add('copied');button.innerHTML='✓ تم نسخ '+label+'<small>الرابط جاهز للصق</small>';
+  setTimeout(()=>{button.innerHTML=old;button.classList.remove('copied');},1800);
+}
+
 </script>
 </body>
 </html>
