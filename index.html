@@ -83,7 +83,7 @@ footer{text-align:center;color:#849486;font-size:12px;padding:25px}
     <h2>شؤون التجنيد</h2>
     <div class="cards">
       <button class="card" onclick="showForm('job')">نموذج توظيف التكتات</button>
-      <button class="card" onclick="showForm('specialJob')">نموذج توظيف </button>
+      <button class="card" onclick="showForm('specialJob')">نموذج توظيف استثنائي</button>
     </div>
   </section>
 
@@ -331,7 +331,7 @@ ${roles.chief}`},
 <@&1495735349677133914>
 <@&1404535917686947850>`},
 
-  specialJob:{section:'recruit',title:'نموذج توظيف ',fields:[
+  specialJob:{section:'recruit',title:'نموذج توظيف استثنائي',fields:[
     ['name','اسم المستجد','text'],['id','آيدي المستجد','text'],['age','العمر','number'],
     ['experience','الخبرة','text'],['military','هل لديه خبرات عسكرية؟','select',['نعم','لا']],
     ['notes','ملاحظات','textarea'],['rejection','سبب الرفض (اكتب لا يوجد إن لم يوجد)','text','لا يوجد']
@@ -454,6 +454,10 @@ externalLeave:{section:'admin',title:'إجازة خارجية',fields:[['number'
 مدير مكتب ${roles.police}
 <@1222300056753934467>
 
+اعـتـماد ✍🏻 :
+
+${roles.approval}`},
+
 internalLeave:{section:'admin',title:'إجازة داخلية',fields:[['number','رقم القرار','text'],['soldier','آيدي العسكري','text'],['duration','مدة الإجازة','select',Array.from({length:24},(_,i)=>`${i+1} ساعة`)],['balance','الرصيد المتبقي','text'],['start','تاريخ البداية','date'],['startTime','وقت البداية','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)],['returnDate','تاريخ العودة','date'],['returnTime','وقت العودة','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)]],make:v=>`﷽
 
 **قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
@@ -482,6 +486,10 @@ internalLeave:{section:'admin',title:'إجازة داخلية',fields:[['number'
 مدير مكتب ${roles.police}
 <@1222300056753934467>
 
+اعـتـماد ✍🏻 :
+
+${roles.approval}`},
+
 resignation:{section:'admin',title:'استقالة عسكري',fields:[['number','رقم القرار','text'],['rank','رتبة العسكري','select',['جندي|1404535919528120472','جندي أول|1404535919444234331','عريف|1404535919444361276','وكيل رقيب|1404535919012352153','رقيب|1404535919511601232','رقيب أول|1404535920681553990','رئيس رقباء|1404535920744595507','ملازم|1404535920711045121','ملازم أول|1404535920627028008','نقيب|1404535921948233868']],['soldier','آيدي العسكري','text'],['name','اسم العسكري','text'],['code','كود العسكري (3 أرقام)','text']],make:v=>{const [rank,id]=v.rank.split('|');return `*** ﷽ ***
 
 **قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
@@ -501,6 +509,10 @@ ${v.name} [H-${String(v.code).padStart(3,'0')}]
 
 مدير مكتب ${roles.police}
 <@1222300056753934467>
+
+اعـتـماد ✍🏻 :
+
+${roles.approval}`}},
 
 secondment:{section:'admin',title:'انتداب لقطاع آخر',fields:[['number','رقم القرار','text'],['soldier','آيدي العسكري','text'],['sector','القطاع المنتدب إليه','select',['الأمن العام|1404535934703239301','أمن المنشآت|1404535908493168824','الإدارة العامة للمجاهدين|1553866934515408978','الهلال الأحمر|1404535887643021414','كراج الميكانيك|1404535894219952338']],['duration','مدة الانتداب','select',Array.from({length:7},(_,i)=>`${i+1} ${i===0?'يوم':'أيام'}`)],['start','تاريخ البداية','date'],['startTime','وقت البداية','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)],['returnDate','تاريخ العودة','date'],['returnTime','وقت العودة','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)]],make:v=>{const [sector,id]=v.sector.split('|');return `﷽
 
@@ -532,6 +544,10 @@ secondment:{section:'admin',title:'انتداب لقطاع آخر',fields:[['num
 مدير مكتب ${roles.police}
 <@1222300056753934467>
 
+اعـتـماد ✍🏻 :
+
+${roles.approval}`}},
+
 adminCustom:{section:'admin',title:'قرار إداري مخصص',fields:[['number','رقم القرار','text'],['subject','موضوع القرار','text'],['details','نص القرار','textarea'],['soldier','آيدي العسكري (اختياري)','text']],make:v=>`﷽
 
 **قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
@@ -549,13 +565,9 @@ ${v.details}
 مدير مكتب ${roles.police}
 <@1222300056753934467>
 
-نائب مدير مكتب ${roles.police}
-<@1217499184224272387>
-
 اعـتـماد ✍🏻 :
 
-${roles.approval}
-${roles.chief}`}
+${roles.approval}`}
 
 };
 
