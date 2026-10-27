@@ -6,44 +6,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>مقاطعة العاذرية | البوابة العسكرية</title>
 <style>
-:root{--bg:#090e0b;--panel:#121b15;--green:#294b35;--gold:#c6d6a2;--text:#eef3e9;--muted:#a8b7a7}
+:root{--bg:#08090b;--panel:#101114;--panel2:#15161a;--gold:#ffb914;--gold2:#f4a900;--text:#f5f5f5;--muted:#8fa4c6;--line:#202126;--green:#17191d}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.9;background-image:radial-gradient(ellipse at top,rgba(41,75,53,.22),transparent 60%)}
-header{text-align:center;padding:35px 15px 20px;background:linear-gradient(150deg,#203b29,#101811);border-bottom:1px solid #405b43}
-.emblem{font-size:42px}
-h1{margin:4px 0;color:var(--gold)}
+html{min-height:100%;background:var(--bg)}
+body{margin:0;min-height:100vh;background-color:var(--bg);background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:50px 48px;color:var(--text);font-family:"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.85}
+header{text-align:center;padding:22px 15px 24px;background:transparent;border-bottom:1px solid rgba(255,255,255,.035)}
+.emblem{font-size:42px;color:var(--gold);line-height:1.1}
+h1{margin:4px 0;color:var(--gold);font-size:clamp(25px,4vw,38px);font-weight:900;letter-spacing:.1px}
+h2,h3{color:var(--gold);margin-top:0}
 header p,.muted{color:var(--muted);font-size:14px}
-main{width:min(900px,94%);margin:25px auto 60px}
-button,.navbtn{cursor:pointer;border:1px solid #49654a;background:var(--green);color:white;border-radius:10px;padding:12px 15px;font:inherit}
-button:hover,.navbtn:hover{filter:brightness(1.12);transform:translateY(-2px);box-shadow:0 8px 22px #0004;border-color:var(--gold)}
-button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.navbtn{min-height:90px;text-align:right;font-weight:bold;font-size:17px}
-.navbtn span{display:block;color:#c0d0be;font-weight:normal;font-size:12px}
-.panel{background:var(--panel);border:1px solid #2e4032;border-radius:18px;padding:22px;margin-top:18px;box-shadow:0 14px 35px #0003}
+header p{margin:0}
+main{width:min(900px,94%);margin:24px auto 60px}
+button,.navbtn{cursor:pointer;border:1px solid rgba(255,185,20,.18);background:var(--gold);color:#08090b;border-radius:14px;padding:12px 16px;font:inherit;font-weight:750;transition:transform .18s ease,filter .18s ease,box-shadow .18s ease;box-shadow:0 5px 16px rgba(0,0,0,.15)}
+button:hover,.navbtn:hover{filter:brightness(1.06);transform:translateY(-2px);box-shadow:0 8px 22px rgba(255,185,20,.13);border-color:var(--gold)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+#home{text-align:center;padding-top:8px}
+#home h2{color:var(--gold);font-size:24px;margin-bottom:3px}
+#home>.muted{margin-top:0}
+.grid{display:grid;grid-template-columns:minmax(0,250px);justify-content:center;gap:12px;margin:26px auto 0}
+.navbtn{width:100%;min-height:49px;text-align:center;font-size:16px;border:0;border-radius:14px;padding:10px 14px;background:var(--gold);color:#090909}
+.navbtn span{display:block;color:#322506;font-weight:500;font-size:12px;line-height:1.5}
+.panel{background:rgba(16,17,20,.96);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:18px;box-shadow:0 14px 35px #0005}
 .hidden{display:none!important}
-.back{background:#26332a;margin-bottom:14px}
+.back{background:#191a1e;color:var(--gold);border:1px solid #393a3f;margin-bottom:14px}
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.card{text-align:right;background:#1c2b20;min-height:70px}
-label{display:block;margin:12px 0 5px;font-size:14px}
-input,textarea,select{width:100%;padding:12px;background:#0c140e;border:1px solid #3c5140;border-radius:8px;color:white;font:inherit}
+.card{text-align:center;background:var(--gold);color:#08090b;min-height:58px;border:0}
+label{display:block;margin:12px 0 5px;font-size:14px;color:#e7e7e7}
+input,textarea,select{width:100%;padding:12px;background:#0b0c0f;border:1px solid #34363d;border-radius:9px;color:white;font:inherit}
 textarea{min-height:85px;resize:vertical}
-.output{min-height:280px;white-space:pre-wrap;overflow-wrap:anywhere;direction:rtl;background:#080d09;border:1px solid #3d5340;border-radius:9px;padding:15px;margin-top:15px;font-size:14px}
+.output{min-height:280px;white-space:pre-wrap;overflow-wrap:anywhere;direction:rtl;background:#090a0c;border:1px solid #34363d;border-radius:10px;padding:15px;margin-top:15px;font-size:14px}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-.secondary{background:#303c32}
-footer{text-align:center;color:#849486;font-size:12px;padding:25px}
-@media(max-width:560px){.grid,.cards{grid-template-columns:1fr}header{padding-top:25px}.panel{padding:14px}.navbtn{min-height:70px}}
-
+.secondary{background:#24262c;color:#f5f5f5;border:1px solid #3a3c43}
+footer{text-align:center;color:#6f7480;font-size:12px;padding:25px}
 /* مكتبة القيفات */
 .gif-category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
-.gif-category-btn{min-height:76px;text-align:right;font-weight:bold;background:linear-gradient(135deg,#294b35,#17271b)}
+.gif-category-btn{min-height:76px;text-align:center;font-weight:bold;background:var(--gold);color:#090909}
 .gif-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
-.gif-copy-btn{min-height:68px;text-align:right;background:#1c2b20;border:1px solid #49654a}
-.gif-copy-btn small{display:block;color:#c6d6a2;font-weight:normal;font-size:12px}
-.gif-copy-btn.copied{border-color:#c6d6a2;background:#2d4934}
-.gif-divider-note{grid-column:1/-1;color:#a8b7a7;font-size:12px;margin:4px 0}
-@media(max-width:560px){.gif-category-grid,.gif-list{grid-template-columns:1fr}}
-
+.gif-btn{background:#15161a;color:var(--gold);border:1px solid #38332a;text-align:center;min-height:62px}
+.gif-divider{grid-column:1/-1;background:#15161a;color:var(--gold)}
+.gif-notice{color:var(--muted);font-size:13px;margin-top:12px}
+@media(max-width:560px){.grid,.cards,.gif-category-grid,.gif-list{grid-template-columns:1fr}header{padding-top:20px}.panel{padding:14px}.navbtn{min-height:48px}main{width:min(94%,520px)}h1{line-height:1.4}}
 </style>
 </head>
 <body>
@@ -454,9 +456,13 @@ externalLeave:{section:'admin',title:'إجازة خارجية',fields:[['number'
 مدير مكتب ${roles.police}
 <@1222300056753934467>
 
+نائب مدير مكتب ${roles.police}
+<@1222300056753934467>
+
 اعـتـماد ✍🏻 :
 
-${roles.approval}`},
+${roles.approval}
+${roles.chief}`},
 
 internalLeave:{section:'admin',title:'إجازة داخلية',fields:[['number','رقم القرار','text'],['soldier','آيدي العسكري','text'],['duration','مدة الإجازة','select',Array.from({length:24},(_,i)=>`${i+1} ساعة`)],['balance','الرصيد المتبقي','text'],['start','تاريخ البداية','date'],['startTime','وقت البداية','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)],['returnDate','تاريخ العودة','date'],['returnTime','وقت العودة','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)]],make:v=>`﷽
 
@@ -486,9 +492,13 @@ internalLeave:{section:'admin',title:'إجازة داخلية',fields:[['number'
 مدير مكتب ${roles.police}
 <@1222300056753934467>
 
+نائب مدير مكتب ${roles.police}
+<@1222300056753934467>
+
 اعـتـماد ✍🏻 :
 
-${roles.approval}`},
+${roles.approval}
+${roles.chief}`},
 
 resignation:{section:'admin',title:'استقالة عسكري',fields:[['number','رقم القرار','text'],['rank','رتبة العسكري','select',['جندي|1404535919528120472','جندي أول|1404535919444234331','عريف|1404535919444361276','وكيل رقيب|1404535919012352153','رقيب|1404535919511601232','رقيب أول|1404535920681553990','رئيس رقباء|1404535920744595507','ملازم|1404535920711045121','ملازم أول|1404535920627028008','نقيب|1404535921948233868']],['soldier','آيدي العسكري','text'],['name','اسم العسكري','text'],['code','كود العسكري (3 أرقام)','text']],make:v=>{const [rank,id]=v.rank.split('|');return `*** ﷽ ***
 
@@ -510,9 +520,13 @@ ${v.name} [H-${String(v.code).padStart(3,'0')}]
 مدير مكتب ${roles.police}
 <@1222300056753934467>
 
+نائب مدير مكتب ${roles.police}
+<@1222300056753934467>
+
 اعـتـماد ✍🏻 :
 
-${roles.approval}`}},
+${roles.approval}
+${roles.chief}`}},
 
 secondment:{section:'admin',title:'انتداب لقطاع آخر',fields:[['number','رقم القرار','text'],['soldier','آيدي العسكري','text'],['sector','القطاع المنتدب إليه','select',['الأمن العام|1404535934703239301','أمن المنشآت|1404535908493168824','الإدارة العامة للمجاهدين|1553866934515408978','الهلال الأحمر|1404535887643021414','كراج الميكانيك|1404535894219952338']],['duration','مدة الانتداب','select',Array.from({length:7},(_,i)=>`${i+1} ${i===0?'يوم':'أيام'}`)],['start','تاريخ البداية','date'],['startTime','وقت البداية','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)],['returnDate','تاريخ العودة','date'],['returnTime','وقت العودة','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)]],make:v=>{const [sector,id]=v.sector.split('|');return `﷽
 
@@ -544,9 +558,13 @@ secondment:{section:'admin',title:'انتداب لقطاع آخر',fields:[['num
 مدير مكتب ${roles.police}
 <@1222300056753934467>
 
+نائب مدير مكتب ${roles.police}
+<@1222300056753934467>
+
 اعـتـماد ✍🏻 :
 
-${roles.approval}`}},
+${roles.approval}
+${roles.chief}`}},
 
 adminCustom:{section:'admin',title:'قرار إداري مخصص',fields:[['number','رقم القرار','text'],['subject','موضوع القرار','text'],['details','نص القرار','textarea'],['soldier','آيدي العسكري (اختياري)','text']],make:v=>`﷽
 
@@ -565,9 +583,13 @@ ${v.details}
 مدير مكتب ${roles.police}
 <@1222300056753934467>
 
+نائب مدير مكتب ${roles.police}
+<@1222300056753934467>
+
 اعـتـماد ✍🏻 :
 
-${roles.approval}`}
+${roles.approval}
+${roles.chief}`}
 
 };
 
