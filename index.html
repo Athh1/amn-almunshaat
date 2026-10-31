@@ -104,8 +104,8 @@ footer{text-align:center;color:#6f7480;font-size:12px;padding:25px}
     <div class="cards">
       <button class="card" onclick="showForm('externalLeave')">إجازة خارجية</button>
       <button class="card" onclick="showForm('internalLeave')">إجازة داخلية</button>
-      <button class="card" onclick="showForm('resignation')">استقالات</button>
-      <button class="card" onclick="showForm('secondment')">انتداب لقطاع آخر</button>
+      <button class="card" onclick="showForm('resignation')">استقالة عسكري</button>
+      <button class="card" onclick="showForm('adminDismissal')">فصل إداري</button>
       <button class="card" onclick="showForm('adminCustom')">قرار إداري مخصص</button>
     </div>
   </section>
@@ -264,6 +264,7 @@ ${roles.court}
 **رئاسة الشرطة العسكرية**
 
 <@1041752629765746779>
+<@1157464127200051342>
 
 ${roles.approval}
 
@@ -431,139 +432,103 @@ ${roles.approval}
 
 ${roles.chief}`},
 
-externalLeave:{section:'admin',title:'إجازة خارجية',fields:[['number','رقم القرار','text'],['soldier','آيدي العسكري','text'],['duration','مدة الإجازة','text'],['start','تاريخ البداية','date'],['returnDate','تاريخ العودة','date']],make:v=>`﷽
+externalLeave:{section:'admin',title:'إجازة خارجية',fields:[
+  ['number','رقم البرقية','text'],['soldier','آيدي العسكري (انسخ الآيدي)','text'],
+  ['duration','مدة الإجازة','select',['7 أيام','14 يوم','28 يوم']],['start','من تاريخ (ميلادي)','date']
+],make:v=>{
+  const start=new Date(v.start+'T12:00:00');
+  const days=parseInt(v.duration,10);
+  start.setDate(start.getDate()+days);
+  const end=formatDate(start);
+  return `**بسم الله الرحمن الرحيم**
 
-**قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
+**\`برقية رقم :\` ${v.number}**
 
-**ينـص علـى قبول اجازة العسـكري المحتـرم : <@${v.soldier}>**
+**\`الموضوع :\` إجازة خارجية**
 
-\`\`\`اجازه خارجية
+**\`اسم العسكري :\` <@${v.soldier}>**
 
-المدة : ${v.duration}
+**\`المدة :\` ${v.duration}**
 
-تبدأ من تاريخ : ${v.start}
+**\`من تاريخ\` ${formatDate(new Date(v.start+'T12:00:00'))}**
 
-تاريــخ العـــودة : ${v.returnDate}
+**\`إلى تاريخ\` ${end}**
 
-———————————————————————————————————————
-\`\`\`
+**ملاحظة: يمنع دخول المقاطعة إلا بعد كسر الإجازة، غير ذلك فصل بشكل مباشر**
 
-ترسل نسخة للـ ${roles.police}
+**ترسل نسخة للـ ${roles.police} للاعتماد والتنفيذ**`;
+}},
 
-**توقيع :**
+internalLeave:{section:'admin',title:'إجازة داخلية',fields:[
+  ['number','رقم البرقية','text'],['kind','نوع الإجازة','select',['فرد','ضابط']],['soldier','آيدي العسكري (انسخ الآيدي)','text'],
+  ['duration','مدة الإجازة (من 6 إلى 24 ساعة)','select',Array.from({length:19},(_,i)=>`${i+6} ساعة`)],
+  ['balance','الرصيد المتبقي','text'],['start','تاريخ البداية (ميلادي)','date'],
+  ['startHour','ساعة البداية','select',Array.from({length:12},(_,i)=>String(i+1).padStart(2,'0'))],
+  ['startPeriod','الفترة','select',['AM','PM']]
+],make:v=>{
+  const hour=(parseInt(v.startHour,10)%12)+(v.startPeriod==='PM'?12:0);
+  const start=new Date(v.start+'T00:00:00');
+  start.setHours(hour,0,0,0);
+  const end=new Date(start.getTime()+parseInt(v.duration,10)*60*60*1000);
+  return `**بسم الله الرحمن الرحيم**
 
-مدير مكتب ${roles.police}
-<@1222300056753934467>
+**\`برقية رقم :\` ${v.number}**
 
-نائب مدير مكتب ${roles.police}
-<@1222300056753934467>
+\`الموضوع :\` **إجازة داخلية (${v.kind})**
 
-اعـتـماد ✍🏻 :
+\`اسم العسكري :\` <@${v.soldier}>
 
-${roles.approval}
-${roles.chief}`},
+\`المدة :\` **${v.duration}**
 
-internalLeave:{section:'admin',title:'إجازة داخلية',fields:[['number','رقم القرار','text'],['soldier','آيدي العسكري','text'],['duration','مدة الإجازة','select',Array.from({length:24},(_,i)=>`${i+1} ساعة`)],['balance','الرصيد المتبقي','text'],['start','تاريخ البداية','date'],['startTime','وقت البداية','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)],['returnDate','تاريخ العودة','date'],['returnTime','وقت العودة','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)]],make:v=>`﷽
+\`الرصيد المتبقي :\` **${v.balance}**
 
-**قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
+\`تاريخ البداية :\` **${formatDate(start)} الساعة ${formatTime(start)}**
 
-**ينـص علـى قبول اجازة العسـكري المحتـرم : <@${v.soldier}>**
+\`تاريخ العودة :\` **${formatDate(end)} الساعة ${formatTime(end)}**
 
-\`\`\`اجازه داخليه
+**ملاحظة: يجب عليك تسليم العهدة للشرطة العسكرية، كذلك الرجوع للوظيفة قبل انتهاء الإجازة بـ15 دقيقة**
 
-المدة : ${v.duration}
+**ترسل نسخة للـ ${roles.police} للاعتماد والتنفيذ**`;
+}},
 
-الرصيد المتبقي : ${v.balance}
+resignation:{section:'admin',title:'استقالة عسكري',fields:[
+  ['number','رقم البرقية','text'],['rank','رتبة العسكري','select',['جندي','جندي أول','عريف','وكيل رقيب','رقيب','رقيب أول','رئيس رقباء','ملازم','ملازم أول','نقيب','رائد','مقدم','عقيد','عميد']],
+  ['soldier','آيدي العسكري (انسخ الآيدي)','text'],['name','اسم العسكري','text'],['code','كود العسكري (3 أرقام بالضبط)','text']
+],make:v=>`*** ﷽ ***
 
-تبدأ من تاريخ : ${v.start}
-الساعة : ${v.startTime} بتوقيت مكة المكرمة
+**\`برقية رقم :\` ${v.number}**
 
-تاريــخ العـــودة : ${v.returnDate}
-الساعة : ${v.returnTime} بتوقيت مكة المكرمة
-
-———————————————————————————————————————
-\`\`\`
-
-ترسل نسخة للـ ${roles.police}
-
-**توقيع :**
-
-مدير مكتب ${roles.police}
-<@1222300056753934467>
-
-نائب مدير مكتب ${roles.police}
-<@1222300056753934467>
-
-اعـتـماد ✍🏻 :
-
-${roles.approval}
-${roles.chief}`},
-
-resignation:{section:'admin',title:'استقالة عسكري',fields:[['number','رقم القرار','text'],['rank','رتبة العسكري','select',['جندي|1404535919528120472','جندي أول|1404535919444234331','عريف|1404535919444361276','وكيل رقيب|1404535919012352153','رقيب|1404535919511601232','رقيب أول|1404535920681553990','رئيس رقباء|1404535920744595507','ملازم|1404535920711045121','ملازم أول|1404535920627028008','نقيب|1404535921948233868']],['soldier','آيدي العسكري','text'],['name','اسم العسكري','text'],['code','كود العسكري (3 أرقام)','text']],make:v=>{const [rank,id]=v.rank.split('|');return `*** ﷽ ***
-
-**قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
+\`الموضوع :\` **استقالة**
 
 **ينـص علـى قبول استقالة العسـكري المحتـرم بـرتـبـة :**
-<@&${id}>
+\`الرتبة :\` **${v.rank}**
 
-<@${v.soldier}>
+\`اسم العسكري :\` <@${v.soldier}>
 
-${v.name} [H-${String(v.code).padStart(3,'0')}]
+${v.name} [H-${v.code}]
 
-شكراً لما قدمته من جهود وتعب وعناء، وفقك الله ونتمنى لك الخير والسعادة.
+**شكراً لما قدمته من جهود وتعب وعناء، وفقك الله ونتمنى لك الخير والسعادة**
 
-ترسل نسخة للـ ${roles.police}
+**ترسل نسخة للـ ${roles.police} للاعتماد والتنفيذ**`},
 
-**توقيع :**
+adminDismissal:{section:'admin',title:'فصل إداري',fields:[
+  ['number','رقم البرقية','text'],['soldier','آيدي العسكري (انسخ الآيدي)','text'],['name','اسم العسكري','text'],['code','كود العسكري (3 أرقام بالضبط)','text'],
+  ['rank','رتبة العسكري / سبب الفصل','select',['جندي','جندي أول','عريف']]
+],make:v=>`**بسم الله الرحمن الرحيم**
 
-مدير مكتب ${roles.police}
-<@1222300056753934467>
+**\`برقية رقم :\` ${v.number}**
 
-نائب مدير مكتب ${roles.police}
-<@1222300056753934467>
+\`الموضوع :\` **فصل**
 
-اعـتـماد ✍🏻 :
+\`قرار صادر من الشؤون الإدارية بأمن المنشآت\`
 
-${roles.approval}
-${roles.chief}`}},
+\`بفصل العسكري :\` <@${v.soldier}>  \`${v.name} [H-${v.code}]\`
 
-secondment:{section:'admin',title:'انتداب لقطاع آخر',fields:[['number','رقم القرار','text'],['soldier','آيدي العسكري','text'],['sector','القطاع المنتدب إليه','select',['الأمن العام|1404535934703239301','أمن المنشآت|1404535908493168824','الإدارة العامة للمجاهدين|1553866934515408978','الهلال الأحمر|1404535887643021414','كراج الميكانيك|1404535894219952338']],['duration','مدة الانتداب','select',Array.from({length:7},(_,i)=>`${i+1} ${i===0?'يوم':'أيام'}`)],['start','تاريخ البداية','date'],['startTime','وقت البداية','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)],['returnDate','تاريخ العودة','date'],['returnTime','وقت العودة','select',Array.from({length:24},(_,i)=>`${String(i%12||12).padStart(2,'0')}:00 ${i<12?'صباحًا':'مساءً'}`)]],make:v=>{const [sector,id]=v.sector.split('|');return `﷽
+\`وغرامة مليون + منع توظيف 7 أيام يتم تسليمها للشؤون الإدارية\`
 
-**قـرار صـادر من مـكتب الشـؤون الإداريـة رقـم (${v.number}) :**
+\`السبب :\` **طلب استقالة برتبة ${v.rank}**
 
-**ينـص علـى قبول انتداب العسـكري المحتـرم :**
-
-<@${v.soldier}>
-
-انتداب إلى : <@&${id}> (${sector})
-
-\`\`\`انتداب
-
-المدة : ${v.duration}
-
-تبدأ من تاريخ : ${v.start}
-الساعة : ${v.startTime} بتوقيت مكة المكرمة
-
-تاريــخ العـــودة : ${v.returnDate}
-الساعة : ${v.returnTime} بتوقيت مكة المكرمة
-
-———————————————————————————————————————
-\`\`\`
-
-ترسل نسخة للـ ${roles.police}
-
-**توقيع :**
-
-مدير مكتب ${roles.police}
-<@1222300056753934467>
-
-نائب مدير مكتب ${roles.police}
-<@1222300056753934467>
-
-اعـتـماد ✍🏻 :
-
-${roles.approval}
-${roles.chief}`}},
+**ترسل نسخة للـ ${roles.police} للاعتماد والتنفيذ**`},
 
 adminCustom:{section:'admin',title:'قرار إداري مخصص',fields:[['number','رقم القرار','text'],['subject','موضوع القرار','text'],['details','نص القرار','textarea'],['soldier','آيدي العسكري (اختياري)','text']],make:v=>`﷽
 
@@ -591,6 +556,13 @@ ${roles.approval}
 ${roles.chief}`}
 
 };
+
+function formatDate(date){
+  return new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'2-digit',year:'numeric'}).format(date);
+}
+function formatTime(date){
+  return new Intl.DateTimeFormat('en-US',{hour:'2-digit',minute:'2-digit',hour12:true}).format(date);
+}
 
 let currentForm = null;
 let currentSection = 'home';
@@ -657,8 +629,8 @@ function generate(){
     alert('فضلاً أكمل الخانات التالية:\\n'+missing.join('\\n'));
     return;
   }
-  if((currentForm===templates.dismissal || currentForm===templates.resignation) && !/^\d{1,3}$/.test(v.code)){
-    alert('كود العسكري يجب أن يكون من رقم إلى ثلاثة أرقام.');
+  if((currentForm===templates.dismissal || currentForm===templates.resignation || currentForm===templates.adminDismissal) && !/^\d{3}$/.test(v.code)){
+    alert('كود العسكري يجب أن يتكون من ثلاثة أرقام بالضبط.');
     return;
   }
   if(v.score && (+v.score<0 || +v.score>15)){
